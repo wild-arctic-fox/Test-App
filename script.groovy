@@ -9,6 +9,7 @@ def buildImage() {
 
 def runTest() {
     echo 'running tests...'
+    sh "npm --version"
 }
 
 def deployApp() {
