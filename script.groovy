@@ -3,7 +3,7 @@ def buildImage() {
     withCredentials([usernamePassword(credentialsId: 'my-dockerhub-repo', passwordVariable: 'PASSW', usernameVariable: 'USER')]) {
         sh 'docker build -t wildarcticfox/wild-private-repo:node-2.1 .'
         sh "echo $PASSW | docker login -u $USER --password-stdin"
-        sh 'docker push wildarcticfox/wild-private-repo:node-2.0'
+        sh 'docker push wildarcticfox/wild-private-repo:node-2.1'
     }
 }
 
