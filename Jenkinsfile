@@ -48,7 +48,7 @@ pipeline {
         stage("commit version update") {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'my-dockerhub-repo', passwordVariable: 'PASSW', usernameVariable: 'USER')]) {
+                    sshagent (credentials: ['ssh-auth']) {
                      //   sh "git remote set-url origin https://${USER}:${PASSW}@github.com/wild-arctic-fox/Test-App.git"
                         sh "git status"
                        // sh "git add *"
