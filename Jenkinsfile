@@ -50,8 +50,9 @@ pipeline {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'my-dockerhub-repo', passwordVariable: 'PASSW', usernameVariable: 'USER')]) {
                         sh "git remote set-url origin https://${USER}:${PASSW}@github.com/wild-arctic-fox/Test-App.git"
-                        sh "git add *"
-                        sh "git commit -m'Jenkins CI/CD version increase to $IMAGE_NAME'"
+                        sh "git status"
+                       // sh "git add *"
+                     //   sh "git commit -m'Jenkins CI/CD version increase to $IMAGE_NAME'"
                         sh "git push origin main"
                     }
                 }
