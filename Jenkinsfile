@@ -6,9 +6,6 @@ def gv
 pipeline {
     agent any
     tools {nodejs "my-node"}
-    options {
-        skipDefaultCheckout false
-    }
     stages {
         stage("init") {
             steps {
@@ -19,7 +16,7 @@ pipeline {
         }
         stage('Check for Skip') {
             steps {
-                scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
+                scmSkip(deleteBuild: false, skipPattern:'.*\\[ci skip\\].*')
             }
         }
         stage("inc version") {
