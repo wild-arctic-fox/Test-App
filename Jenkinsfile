@@ -48,7 +48,7 @@ pipeline {
         stage("commit version update") {
             steps {
                 script {
-                    sshagent (credentials: ['ssh-auth']) {
+                    sshagent (credentials: ['ssh-key-second']) {
                      //   sh "git remote set-url origin https://${USER}:${PASSW}@github.com/wild-arctic-fox/Test-App.git"
                         sh "git status"
                        // sh "git add *"
