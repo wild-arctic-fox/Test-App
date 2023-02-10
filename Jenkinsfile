@@ -18,13 +18,16 @@ pipeline {
             steps {
                 script {
                     sh "npm version patch"
+                    def current_app_version = sh(script:"npm pkg get version", returnStdout: true)
+                    env.IMAGE_NAME = "$current_app_version-$BUILD_NUMBER"
+                    echo "$IMAGE_NAME"
                 }
             }
         }
         stage("build image") {
             steps {
                 script {
-                   buildImage 'wildarcticfox/wild-private-repo:node-2.5'
+                   buildImage 'wildarcticfox/wild-private-repo:node-2.6'
                 }
             }
         }
