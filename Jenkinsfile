@@ -7,11 +7,6 @@ pipeline {
     agent any
     tools {nodejs "my-node"}
     stages {
-        stage('Checkout') {
-            steps {
-                scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
-            }
-        }
         stage("init") {
             steps {
                 script {
