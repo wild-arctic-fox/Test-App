@@ -14,15 +14,9 @@ pipeline {
                 }
             }
         }
-        stage('Check for Skip') {
-            steps {
-                scmSkip(deleteBuild: false, skipPattern:'.*\\[ci skip\\].*')
-            }
-        }
         stage("inc version") {
             steps {
                 script {
-                    sh "npm version patch"
                     def current_app_version = sh(script:"npm pkg get version | xargs echo", returnStdout: true).trim()
                     env.IMAGE_NAME = "$current_app_version-$BUILD_NUMBER"
                     echo "image name: $IMAGE_NAME"
@@ -50,18 +44,18 @@ pipeline {
                 }
             }
         }
-        stage("commit version update") {
-            steps {
-                script {
-                    sshagent (credentials: ['ssh-key-second']) {
-                     //   sh "git remote set-url origin https://${USER}:${PASSW}@github.com/wild-arctic-fox/Test-App.git"
-                        sh "git status"
-                       // sh "git add *"
-                        sh "git commit --amend -m'[ci skip] $IMAGE_NAME'"
-                        sh "git push origin HEAD:main"
-                    }
-                }
-            }
-        }
+        // stage("commit version update") {
+        //     steps {
+        //         script {
+        //             // sshagent (credentials: ['ssh-key-second']) {
+        //             //  //   sh "git remote set-url origin https://${USER}:${PASSW}@github.com/wild-arctic-fox/Test-App.git"
+        //             //     sh "git status"
+        //             //    // sh "git add *"
+        //             //     sh "git commit --amend -m'[ci skip] $IMAGE_NAME'"
+        //             //     sh "git push origin HEAD:main"
+        //             // }
+        //         }
+        //     }
+        // }
     }
 }
