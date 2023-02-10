@@ -14,10 +14,17 @@ pipeline {
                 }
             }
         }
+        stage("inc version") {
+            steps {
+                script {
+                    sh "npm version patch"
+                }
+            }
+        }
         stage("build image") {
             steps {
                 script {
-                   buildImage 'wildarcticfox/wild-private-repo:node-2.4'
+                   buildImage 'wildarcticfox/wild-private-repo:node-2.5'
                 }
             }
         }
