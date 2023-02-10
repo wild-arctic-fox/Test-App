@@ -18,8 +18,7 @@ pipeline {
             steps {
                 script {
                     sh "npm version patch"
-                    def current_app_version = sh(script:"npm pkg get version", returnStdout: true).trim()
-                    echo "$current_app_version"
+                    def current_app_version = sh(script:"npm pkg get version | xargs echo", returnStdout: true).trim()
                     env.IMAGE_NAME = "$current_app_version-$BUILD_NUMBER"
                     echo "image name: $IMAGE_NAME"
                 }
@@ -28,7 +27,7 @@ pipeline {
         stage("build image") {
             steps {
                 script {
-                   buildImage 'wildarcticfox/wild-private-repo:node-2.6'
+                   buildImage "wildarcticfox/wild-private-repo:$IMAGE_NAME"
                 }
             }
         }
