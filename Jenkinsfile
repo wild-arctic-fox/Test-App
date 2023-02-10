@@ -18,9 +18,10 @@ pipeline {
             steps {
                 script {
                     sh "npm version patch"
-                    def current_app_version = sh(script:"npm pkg get version", returnStdout: true)
+                    def current_app_version = sh(script:"npm pkg get version", returnStdout: true).trim()
+                    echo "$current_app_version"
                     env.IMAGE_NAME = "$current_app_version-$BUILD_NUMBER"
-                    echo "$IMAGE_NAME"
+                    echo "image name: $IMAGE_NAME"
                 }
             }
         }
