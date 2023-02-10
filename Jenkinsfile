@@ -6,12 +6,20 @@ def gv
 pipeline {
     agent any
     tools {nodejs "my-node"}
+    options {
+        skipDefaultCheckout false
+    }
     stages {
         stage("init") {
             steps {
                 script {
                     gv = load "script.groovy"
                 }
+            }
+        }
+        stage('Check for Skip') {
+            steps {
+                scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
             }
         }
         stage("inc version") {
