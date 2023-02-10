@@ -7,6 +7,11 @@ pipeline {
     agent any
     tools {nodejs "my-node"}
     stages {
+        stage('Checkout') {
+            steps {
+                scmSkip(deleteBuild: true, skipPattern:'.*\[ci skip\].*')
+            }
+        }
         stage("init") {
             steps {
                 script {
@@ -52,7 +57,7 @@ pipeline {
                      //   sh "git remote set-url origin https://${USER}:${PASSW}@github.com/wild-arctic-fox/Test-App.git"
                         sh "git status"
                        // sh "git add *"
-                     //   sh "git commit -m'Jenkins CI/CD version increase to $IMAGE_NAME'"
+                        sh "git commit --amend -m'[ci skip] $IMAGE_NAME'"
                         sh "git push origin HEAD:main"
                     }
                 }
