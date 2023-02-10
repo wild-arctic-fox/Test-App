@@ -17,7 +17,7 @@ pipeline {
         stage("build image") {
             steps {
                 script {
-                   buildImage 'wildarcticfox/wild-private-repo:node-2.3'
+                   buildImage 'wildarcticfox/wild-private-repo:node-2.4'
                 }
             }
         }
