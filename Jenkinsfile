@@ -53,7 +53,7 @@ pipeline {
                         sh "git status"
                        // sh "git add *"
                      //   sh "git commit -m'Jenkins CI/CD version increase to $IMAGE_NAME'"
-                        sh "git push origin main"
+                        sh "git push origin HEAD:main"
                     }
                 }
             }
