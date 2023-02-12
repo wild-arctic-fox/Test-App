@@ -41,7 +41,7 @@ pipeline {
             steps {
                 script {
                     gv.deployApp()
-                    def docker_cmd = 'docker run -d -p 3099:3000 --restart=always wildarcticfox/wild-private-repo:$IMAGE_NAME'
+                    def docker_cmd = 'docker kill $(docker ps -q)'
                     sshagent(['ec2-server-name']) {
                         sh "ssh -o StrictHostKeyChecking=no ec2-user@54.146.71.196 ${docker_cmd}"
                     }
