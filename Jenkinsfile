@@ -42,10 +42,11 @@ pipeline {
             steps {
                 script {
                     gv.deployApp()
-                    def docker_compose_cmd = 'docker-compose -f docker-compose.yaml up --detach'
+                    def shell = 'bash ./server-cmd.sh'
                     sshagent(['ec2-server-name']) {
                         sh 'scp docker-compose.yaml ec2-user@54.146.71.196:/home/ec2-user'
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@54.146.71.196 ${docker_compose_cmd}"
+                        sh 'scp server-cmd.sh ec2-user@54.146.71.196:/home/ec2-user'
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@54.146.71.196 ${shell}"
                     }
                 }
             }
