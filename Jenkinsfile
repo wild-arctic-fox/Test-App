@@ -18,7 +18,8 @@ pipeline {
             steps {
                 script {
                     def current_app_version = sh(script:"npm pkg get version | xargs echo", returnStdout: true).trim()
-                    env.IMAGE_NAME = "$current_app_version-$BUILD_NUMBER"
+                    // env.IMAGE_NAME = "$current_app_version-$BUILD_NUMBER"
+                    env.IMAGE_NAME = "$current_app_version"
                     echo "image name: $IMAGE_NAME"
                 }
             }
@@ -41,9 +42,10 @@ pipeline {
             steps {
                 script {
                     gv.deployApp()
-                    def docker_cmd = 'docker kill $(docker ps -q)'
+                    def docker_compose_cmd = 'docker-compose -f docker-compose.yaml up --detach'
                     sshagent(['ec2-server-name']) {
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@54.146.71.196 ${docker_cmd}"
+                        sh 'scp docker-compose.yaml ec2-user@54.146.71.196:/home/ec2-user'
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@54.146.71.196 ${docker_compose_cmd}"
                     }
                 }
             }
