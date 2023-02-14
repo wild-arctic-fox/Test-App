@@ -18,8 +18,8 @@ pipeline {
             steps {
                 script {
                     def current_app_version = sh(script:"npm pkg get version | xargs echo", returnStdout: true).trim()
-                    // env.IMAGE_NAME = "$current_app_version-$BUILD_NUMBER"
-                    env.IMAGE_NAME = "$current_app_version"
+                    env.IMAGE_NAME = "$current_app_version-$BUILD_NUMBER"
+                    // env.IMAGE_NAME = "$current_app_version"
                     echo "image name: $IMAGE_NAME"
                 }
             }
@@ -42,7 +42,7 @@ pipeline {
             steps {
                 script {
                     gv.deployApp()
-                    def shell = 'bash ./server-cmd.sh'
+                    def shell = "bash ./server-cmd.sh wildarcticfox/wild-private-repo:$IMAGE_NAME"
                     sshagent(['ec2-server-name']) {
                         sh 'scp docker-compose.yaml ec2-user@54.146.71.196:/home/ec2-user'
                         sh 'scp server-cmd.sh ec2-user@54.146.71.196:/home/ec2-user'

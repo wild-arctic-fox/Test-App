@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   node-express-app:
-    image: wildarcticfox/wild-private-repo:20.0.0
+    image: ${IMAGE}
     ports: 
       - 8080:3000
 
