@@ -19,6 +19,7 @@ pipeline {
                 script {
                     def current_app_version = sh(script:"npm pkg get version | xargs echo", returnStdout: true).trim()
                     env.IMAGE_NAME = "$current_app_version-$BUILD_NUMBER"
+                    // env.IMAGE_NAME = "$current_app_version"
                     echo "image name: $IMAGE_NAME"
                 }
             }
