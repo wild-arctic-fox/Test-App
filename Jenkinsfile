@@ -38,13 +38,14 @@ pipeline {
             }
         }
         stage("deploy") {
+            environment {
+                AWS_ACCESS_KEY_ID = credentials('aws-secret-root-id')
+                AWS_SECRET_ACCESS_KEY = credentials('aws-root-secret-key')
+            }
             steps {
                 script {
                     gv.deployApp()
-                    def docker_cmd = 'docker kill $(docker ps -q)'
-                    sshagent(['ec2-server-name']) {
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@54.146.71.196 ${docker_cmd}"
-                    }
+                    sh 'kubectl version'
                 }
             }
         }
