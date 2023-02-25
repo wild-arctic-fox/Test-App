@@ -16,7 +16,7 @@ spec:
       - name: my-dockerhub-key
       containers:
       - name: $APP_NAME
-        image: wildarcticfox/$IMAGE_NAME
+        image: wildarcticfox/wild-private-repo:$IMAGE_NAME
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
