@@ -19,7 +19,6 @@ pipeline {
                 script {
                     def current_app_version = sh(script:"npm pkg get version | xargs echo", returnStdout: true).trim()
                     env.IMAGE_NAME = "$current_app_version-$BUILD_NUMBER"
-                    // env.IMAGE_NAME = "$current_app_version"
                     echo "image name: $IMAGE_NAME"
                 }
             }
@@ -42,26 +41,14 @@ pipeline {
             environment {
                 AWS_ACCESS_KEY_ID = credentials('aws-secret-root-id')
                 AWS_SECRET_ACCESS_KEY = credentials('aws-root-secret-key')
+                APP_NAME = 'express-app'
             }
             steps {
                 script {
                     gv.deployApp()
-                    sh 'kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml --context cluster-cli'
+                    sh 'envsubst < k8s/express-server.yaml | kubectl apply -f -'
                 }
             }
         }
-        // stage("commit version update") {
-        //     steps {
-        //         script {
-        //             // sshagent (credentials: ['ssh-key-second']) {
-        //             //  //   sh "git remote set-url origin https://${USER}:${PASSW}@github.com/wild-arctic-fox/Test-App.git"
-        //             //     sh "git status"
-        //             //    // sh "git add *"
-        //             //     sh "git commit --amend -m'[ci skip] $IMAGE_NAME'"
-        //             //     sh "git push origin HEAD:main"
-        //             // }
-        //         }
-        //     }
-        // }
     }
 }
