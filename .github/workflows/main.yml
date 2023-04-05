@@ -1,4 +1,4 @@
-name: Reviewer Assigned Email Notification
+name: Commit to Main Branch Email Notification
 on:
   push:
     branches:
@@ -11,14 +11,12 @@ jobs:
       uses: actions/checkout@v2
     - name: Send email notification
       uses: dawidd6/action-send-mail@v2
-      env:
-        SMTP_SERVER: smtp.gmail.com
-        SMTP_PORT: 587
-        SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
-        SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-        MAIL_FROM: atom.of.chaos@gmail.com
-        MAIL_TO: atom.of.chaos@gmail.com
-        MAIL_SUBJECT: Reviewer Assigned
-        MAIL_BODY: |
-          A pull request has been assigned to you as a reviewer. Please review it as soon as possible.
-        MAIL_DEBUG: true
+      with:
+        server_address: smtp.gmail.com
+        server_port: 587
+        username: ${{ secrets.SMTP_USERNAME }}
+        password: ${{ secrets.SMTP_PASSWORD }}
+        subject: Commit to Main Branch
+        body: |
+          A new commit has been made to the main branch of the repository. Please review it as soon as possible.
+        to: atom.of.chaos@gmail.com
