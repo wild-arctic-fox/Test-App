@@ -20,3 +20,4 @@ jobs:
         body: |
           A new commit has been made to the main branch of the repository. Please review it as soon as possible.
         to: atom.of.chaos@gmail.com
+        from: atom.of.chaos@gmail.com
