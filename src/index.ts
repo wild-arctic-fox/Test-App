@@ -3,7 +3,7 @@ import * as express from 'express'
 import { Request, Response, Express } from 'express'
 const app: Express = express()
 
-app.get('/status', (req: Request, res: Response) => res.status(200).json({ update: false, status: req.headers }))
+app.get('/status', (req: Request, res: Response) => res.status(200).json({ update: true, status: req.headers }))
 
 app.get('/', (req: Request, res: Response) => res.status(200).json({ status: req.headers['x-forwarded-for'] }))
 
