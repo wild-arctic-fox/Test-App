@@ -2,7 +2,7 @@ name: Reviewer Assigned Email Notification
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   email-notification:
     runs-on: ubuntu-latest
