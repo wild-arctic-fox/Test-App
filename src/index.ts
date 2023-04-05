@@ -7,6 +7,6 @@ app.get('/status', (req: Request, res: Response) => res.status(200).json({ updat
 
 app.get('/', (req: Request, res: Response) => res.status(200).json({ status: req.headers['x-forwarded-for'] }))
 
-app.get('/error', (req: Request, res: Response) => { throw new Error('Sth went wrong!') })
+app.get('/error', (req: Request, res: Response) => { throw new Error('Sth went wrong!!') })
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'))
