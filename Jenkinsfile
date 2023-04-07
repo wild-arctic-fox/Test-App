@@ -43,12 +43,13 @@ pipeline {
             //     AWS_SECRET_ACCESS_KEY = credentials('aws-root-secret-key')
             //     APP_NAME = 'express-app'
             // }
-            // steps {
-            //     script {
-            //         gv.deployApp()
-            //         sh 'envsubst < k8s/express-server.yaml | kubectl apply -f -'
-            //     }
-            // }
+            steps {
+                script {
+                    // gv.deployApp()
+                    // sh 'envsubst < k8s/express-server.yaml | kubectl apply -f -'
+                    sh 'echo deploy'
+                }
+            }
         }
     }
 }
