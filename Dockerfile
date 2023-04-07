@@ -13,4 +13,4 @@ RUN npm install && npm install typescript -g && npm install -g pm2
 RUN tsc
 
 # no need for /home/app/server.js because of WORKDIR
-CMD ["pm2 start", "dist/index.js"]
+CMD ["pm2-runtime", "dist/index.js"]
