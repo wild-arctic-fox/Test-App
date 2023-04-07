@@ -8,9 +8,9 @@ COPY . /home/app
 WORKDIR /home/app
 
 # will execute npm install in /home/app because of WORKDIR
-RUN npm install && npm install typescript -g
+RUN npm install && npm install typescript -g && npm install -g pm2
 
 RUN tsc
 
 # no need for /home/app/server.js because of WORKDIR
-CMD ["node", "dist/index.js"]
+CMD ["pm2 start", "dist/index.js"]

@@ -38,17 +38,17 @@ pipeline {
             }
         }
         stage("deploy") {
-            environment {
-                AWS_ACCESS_KEY_ID = credentials('aws-secret-root-id')
-                AWS_SECRET_ACCESS_KEY = credentials('aws-root-secret-key')
-                APP_NAME = 'express-app'
-            }
-            steps {
-                script {
-                    gv.deployApp()
-                    sh 'envsubst < k8s/express-server.yaml | kubectl apply -f -'
-                }
-            }
+            // environment {
+            //     AWS_ACCESS_KEY_ID = credentials('aws-secret-root-id')
+            //     AWS_SECRET_ACCESS_KEY = credentials('aws-root-secret-key')
+            //     APP_NAME = 'express-app'
+            // }
+            // steps {
+            //     script {
+            //         gv.deployApp()
+            //         sh 'envsubst < k8s/express-server.yaml | kubectl apply -f -'
+            //     }
+            // }
         }
     }
 }
