@@ -1,0 +1,23 @@
+name: Commit to Main Branch Email Notification
+on:
+  push:
+    branches:
+      - main
+jobs:
+  email-notification:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up Git repository
+      uses: actions/checkout@v2
+    - name: Send email notification
+      uses: dawidd6/action-send-mail@v2
+      with:
+        server_address: smtp.gmail.com
+        server_port: 587
+        username: ${{ secrets.SMTP_USERNAME }}
+        password: ${{ secrets.SMTP_PASSWORD }}
+        subject: Commit to Main Branch
+        body: |
+          A new commit has been made to the main branch of the repository. Please review it as soon as possible.
+        to: atom.of.chaos@gmail.com
+        from: atom.of.chaos@gmail.com
